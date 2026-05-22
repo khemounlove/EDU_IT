@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>EDU_IT | KHQR Payment + Telegram</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #eef2f8;
+      padding: 1rem;
+    }
+    .dashboard {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    .brand {
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+    .brand h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #0f2c39, #1b6b8f);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .brand p {
+      font-size: 0.75rem;
+      color: #5a6e82;
+      margin-top: 0.2rem;
+    }
+    .flex-main {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .course-catalog {
+      flex: 1.6;
+      background: white;
+      border-radius: 1.2rem;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .enrollment-panel {
+      flex: 1.2;
+      background: white;
+      border-radius: 1.2rem;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      position: sticky;
+      top: 10px;
+      height: fit-content;
+    }
+    .section-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+      border-left: 4px solid #2c7da0;
+      padding-left: 0.7rem;
+    }
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 0.8rem;
+    }
+    .course-card {
+      background: #fff;
+      border-radius: 1rem;
+      border: 1px solid #e9edf2;
+      overflow: hidden;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .course-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-color: #bdd9ec;
+    }
+    .course-img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+    }
+    .course-info {
+      padding: 0.7rem;
+    }
+    .course-title {
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .course-badge {
+      font-size: 0.55rem;
+      background: #eef2fa;
+      padding: 0.15rem 0.5rem;
+      border-radius: 2rem;
+    }
+    .course-desc {
+      font-size: 0.65rem;
+      color: #6b7c93;
+      margin: 0.3rem 0;
+    }
+    .course-price {
+      font-weight: 700;
+      color: #1a5a7a;
+      font-size: 1rem;
+      margin: 0.3rem 0;
+    }
+    .select-course-btn {
+      background: #eef3fc;
+      border: none;
+      width: 100%;
+      padding: 0.35rem;
+      border-radius: 1.5rem;
+      font-weight: 600;
+      font-size: 0.7rem;
+      margin-top: 0.2rem;
+      cursor: pointer;
+    }
+    .form-group {
+      margin-bottom: 0.6rem;
+    }
+    .form-group label {
+      font-weight: 600;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      color: #2c5a7a;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 0.8rem;
+      border: 1.5px solid #e2e8f0;
+      font-size: 0.75rem;
+      font-family: inherit;
+    }
+    .qr-area {
+      background: #f8fafd;
+      border-radius: 1rem;
+      padding: 0.6rem;
+      text-align: center;
+      margin: 0.6rem 0;
+    }
+    .qr-static-img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      border-radius: 0.8rem;
+      background: white;
+      padding: 4px;
+    }
+    .amount-ref-info {
+      font-size: 0.7rem;
+      margin-top: 6px;
+      font-weight: 600;
+      background: #eef3fc;
+      padding: 4px;
+      border-radius: 0.8rem;
+    }
+    .bank-info {
+      font-size: 0.55rem;
+      margin-top: 5px;
+      color: #1e5f7e;
+      background: #e6f0f8;
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 1rem;
+    }
+    .btn-telegram {
+      background: #0f3b5f;
+      width: 100%;
+      padding: 0.6rem;
+      border: none;
+      border-radius: 1.5rem;
+      color: white;
+      font-weight: 700;
+      font-size: 0.75rem;
+      margin-top: 0.5rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn-telegram:hover {
+      background: #1d5b85;
+    }
+    .file-zone {
+      border: 1.5px dashed #90b4d4;
+      background: #fbfdff;
+      border-radius: 0.8rem;
+      padding: 0.5rem;
+      text-align: center;
+      margin: 0.4rem 0;
+    }
+    .preview-file {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #eef3fa;
+      border-radius: 0.8rem;
+      padding: 0.3rem 0.6rem;
+      margin-top: 0.4rem;
+      font-size: 0.65rem;
+    }
+    .preview-img {
+      width: 30px;
+      height: 30px;
+      object-fit: cover;
+      border-radius: 0.4rem;
+    }
+    .message-box {
+      margin-top: 0.6rem;
+      padding: 0.5rem;
+      border-radius: 0.8rem;
+      font-size: 0.65rem;
+      display: none;
+    }
+    .selected-course-display {
+      background: #eef3fa;
+      border-radius: 0.8rem;
+      padding: 0.5rem;
+      font-size: 0.7rem;
+      margin-bottom: 0.8rem;
+      font-weight: 500;
+    }
+    .loading-spinner {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 0.6s linear infinite;
+      margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (max-width: 750px) {
+      .flex-main { flex-direction: column; }
+      .enrollment-panel { position: static; }
+    }
+  </style>
+</head>
+<body>
+<div class="dashboard">
+  <div class="brand">
+    <h1>🎓 EDU_IT · KHQR Payment · Learned Video</h1>
+    <p>Select course → scan KHQR → upload slip </p>
+  </div>
+  <button type="submit" class="btn-telegram" style="max-width: 150px; margin: 0 auto 1rem;" onclick="window.location.href='index.html'">
+          Back to Home
+        </button>
+
+  <div class="flex-main">
+    <!-- COURSE CATALOG -->
+    <div class="course-catalog">
+      <div class="section-title">📚 Project Courses</div>
+      <div class="course-grid" id="coursesGrid"></div>
+    </div>
+
+    <!-- ENROLLMENT PANEL -->
+    <div class="enrollment-panel">
+      <h3 style="font-size: 0.9rem; margin-bottom: 0.4rem;">✍️ Enrollment</h3>
+      <div id="selectedCourseDisplay" class="selected-course-display">
+        ⚡ No course selected
+      </div>
+      <form id="enrollFormTelegram">
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" id="studentName" placeholder="Your Full Name" required>
+        </div>
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" id="studentEmail" placeholder="your.email@example.com" required>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="text" id="studentPhone" placeholder="Optional, e.g. +85599822579">
+        </div>
+        <div class="form-group">
+          <label>Enrollment Type</label>
+          <select id="enrollTypeSelect">
+            <option>Full-time (12w)</option>
+            <option>Part-time (24w)</option>
+            <option>Self-paced</option>
+          </select>
+        </div>
+        
+        <!-- KHQR IMAGE -->
+        <div class="qr-area">
+          <div style="font-weight:600; font-size:0.6rem;">📱 SCAN KHQR</div>
+          <img id="khqrImage" class="qr-static-img" src="images/KHQR.JPG" alt="KHQR" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/QR_Code_Example.svg/100px-QR_Code_Example.svg.png'">
+          <div class="amount-ref-info">
+            💵 $<span id="displayAmount">0</span> &nbsp;| 🔖 <span id="displayRef">----</span>
+          </div>
+          <div id="qrCourseHint" style="font-size:0.6rem; color:#2c7da0;"></div>
+          <div class="bank-info">🏦 ABA Bank · KHQR</div>
+        </div>
+        
+        <!-- FILE UPLOAD -->
+        <div class="file-zone">
+          <span style="font-weight:600; font-size:0.7rem;">🧾 Payment Slip *</span>
+          <input type="file" id="paymentFileInput" accept="image/*" style="display:none;">
+          <button type="button" id="triggerUploadBtn" style="background:#eef2f9; border:1px solid #cbdde9; border-radius:1.5rem; padding:0.25rem 0.8rem; margin-top:6px; cursor:pointer; font-size:0.65rem;">📁 Choose file</button>
+          <div id="filePreviewArea" style="display:none;" class="preview-file">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <img id="previewImageThumb" class="preview-img" style="display:none;">
+              <span id="fileNameDisplay" style="font-size:0.65rem;"></span>
+            </div>
+            <button type="button" id="removeFileBtn" style="background:none; border:none; color:#c2412c; cursor:pointer;">✖</button>
+          </div>
+          <div style="font-size:0.55rem; margin-top:4px; color:#6b7c93;">JPG/PNG max 5MB</div>
+        </div>
+        
+        <button type="submit" class="btn-telegram" id="submitEnrollTelegramBtn">
+          📨 Enroll → NOW
+        </button>
+        <div id="globalMessage" class="message-box"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ==================== COURSES ====================
+  const coursesList = [
+    { id: 1, title: "Laravel E-Commerce", price: 89, badge: "Best Seller", desc: "Full cart & payment", img: "images/course1.jpg" },
+    { id: 2, title: "Java POS System", price: 99, badge: "Popular", desc: "Inventory reports", img: "images/course2.jpg" },
+    { id: 3, title: "School Management", price: 79, badge: "New", desc: "php + html css javascript, attendance", img: "images/course3.jpg" },
+    { id: 4, title: "AI Chatbot App", price: 179, badge: "Trending", desc: "OpenAI cloud api", img: "images/course4.jpg" },
+    { id: 5, title: "Responsive Web", price: 59, badge: "Hot", desc: "CSS bootstrap Grid/Flex", img: "images/course5.jpg" },
+    { id: 6, title: "Full Stack Dev", price: 199, badge: "Premium", desc: "Laravel + Vue.js", img: "images/course6.jpg" },
+    { id: 7, title: "UI/UX Masterclass", price: 149, badge: "Design", desc: "Figma, Adobe XD", img: "images/course7.jpg" },
+    { id: 8, title: "Basic Web Development", price: 49, badge: "Website", desc: "HTML, CSS, JavaScript", img: "images/course8.jpg" },
+    { id: 9, title: "Basic Networking", price: 69, badge: "Security", desc: "WAN vs LAN, network architecture", img: "images/course9.jpg" },
+  ];
+
+  // ==================== TELEGRAM ====================
+  const BOT_TOKEN = "8930473093:AAFcb_mDHowfLzR9Eo0oqmGTks3kyXflBqU";
+  let TELEGRAM_CHAT_ID = localStorage.getItem('edu_it_chat_id');
+  if (!TELEGRAM_CHAT_ID) {
+    TELEGRAM_CHAT_ID = "6444898588";
+    localStorage.setItem('edu_it_chat_id', TELEGRAM_CHAT_ID);
+  }
+
+  let selectedCourse = null;
+  let currentPaymentRef = generateRef();
+  let uploadedFile = null;
+
+  // DOM elements
+  const coursesGrid = document.getElementById('coursesGrid');
+  const selectedCourseDisplay = document.getElementById('selectedCourseDisplay');
+  const displayAmount = document.getElementById('displayAmount');
+  const displayRef = document.getElementById('displayRef');
+  const qrCourseHint = document.getElementById('qrCourseHint');
+  const studentName = document.getElementById('studentName');
+  const studentEmail = document.getElementById('studentEmail');
+  const studentPhone = document.getElementById('studentPhone');
+  const enrollType = document.getElementById('enrollTypeSelect');
+  const fileInput = document.getElementById('paymentFileInput');
+  const triggerUpload = document.getElementById('triggerUploadBtn');
+  const filePreview = document.getElementById('filePreviewArea');
+  const fileNameSpan = document.getElementById('fileNameDisplay');
+  const removeFileBtn = document.getElementById('removeFileBtn');
+  const previewThumb = document.getElementById('previewImageThumb');
+  const submitBtn = document.getElementById('submitEnrollTelegramBtn');
+  const msgDiv = document.getElementById('globalMessage');
+
+  function generateRef() {
+    return 'KHQR-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+  }
+
+  function showMessage(text, isError = false, isSuccess = false) {
+    msgDiv.style.display = 'block';
+    msgDiv.innerHTML = text;
+    if (isSuccess) {
+      msgDiv.style.background = '#e0f2e9';
+      msgDiv.style.color = '#0a5c3e';
+      msgDiv.style.borderLeft = '3px solid #2b9348';
+    } else if (isError) {
+      msgDiv.style.background = '#ffe8e6';
+      msgDiv.style.color = '#b91c1c';
+      msgDiv.style.borderLeft = '3px solid #e03a3a';
+    } else {
+      msgDiv.style.background = '#e8f0fe';
+      msgDiv.style.color = '#1e5f8e';
+    }
+    setTimeout(() => { msgDiv.style.display = 'none'; }, 5000);
+  }
+
+  function updateUI() {
+    if (!selectedCourse) {
+      displayAmount.innerText = "0";
+      displayRef.innerText = "----";
+      qrCourseHint.innerText = "";
+      return;
+    }
+    displayAmount.innerText = selectedCourse.price;
+    displayRef.innerText = currentPaymentRef;
+    qrCourseHint.innerText = `${selectedCourse.title} · $${selectedCourse.price}`;
+  }
+
+  function selectCourse(course) {
+    selectedCourse = course;
+    currentPaymentRef = generateRef();
+    selectedCourseDisplay.innerHTML = ` ${course.title} · $${course.price} · Ref: ${currentPaymentRef}`;
+    updateUI();
+  }
+
+  function renderCourses() {
+    coursesGrid.innerHTML = '';
+    coursesList.forEach(course => {
+      const card = document.createElement('div');
+      card.className = 'course-card';
+      card.innerHTML = `
+        <img class="course-img" src="${course.img}" onerror="this.src='https://picsum.photos/id/1/200/120'">
+        <div class="course-info">
+          <div class="course-title">${course.title}<span class="course-badge">${course.badge}</span></div>
+          <div class="course-desc">${course.desc}</div>
+          <div class="course-price">$${course.price}</div>
+          <button class="select-course-btn" data-id="${course.id}">Select</button>
+        </div>
+      `;
+      coursesGrid.appendChild(card);
+    });
+    document.querySelectorAll('.select-course-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = parseInt(btn.dataset.id);
+        const course = coursesList.find(c => c.id === id);
+        if (course) selectCourse(course);
+      });
+    });
+  }
+
+  // FILE UPLOAD
+  triggerUpload.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        showMessage("Max 5MB", true);
+        return;
+      }
+      if (!file.type.startsWith('image/')) {
+        showMessage("Please upload image (JPG/PNG)", true);
+        return;
+      }
+      uploadedFile = file;
+      fileNameSpan.innerText = file.name.length > 25 ? file.name.slice(0,22)+'...' : file.name;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        previewThumb.src = ev.target.result;
+        previewThumb.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+      filePreview.style.display = 'flex';
+      showMessage("✓ Slip attached", false);
+    }
+  });
+  removeFileBtn.addEventListener('click', () => {
+    uploadedFile = null;
+    fileInput.value = '';
+    filePreview.style.display = 'none';
+    previewThumb.style.display = 'none';
+    showMessage("Slip removed", true);
+  });
+
+  // TELEGRAM SEND (with image)
+  async function sendPhotoToTelegram(caption, imageBlob) {
+    const formData = new FormData();
+    formData.append('chat_id', TELEGRAM_CHAT_ID);
+    formData.append('photo', imageBlob, 'payment_slip.jpg');
+    formData.append('caption', caption);
+    formData.append('parse_mode', 'Markdown');
+    const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, { method: 'POST', body: formData });
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.description || 'Telegram photo error');
+    return data;
+  }
+
+  // SUBMIT
+  document.getElementById('enrollFormTelegram').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fullName = studentName.value.trim();
+    const email = studentEmail.value.trim();
+    const phone = studentPhone.value.trim();
+    const type = enrollType.value;
+    
+    if (!fullName || !email || !email.includes('@')) {
+      showMessage("❌ Valid name & email", true);
+      return;
+    }
+    if (!selectedCourse) {
+      showMessage("❌ Select a course", true);
+      return;
+    }
+    if (!uploadedFile) {
+      showMessage("❌ Upload payment slip", true);
+      return;
+    }
+    
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="loading-spinner"></span>Sending...';
+    
+    const caption = `🎓 *EDU_IT · NEW ENROLLMENT* 🎓\n\n` +
+      `👤 *Student:* ${fullName}\n📧 *Email:* ${email}\n📞 *Phone:* ${phone || "—"}\n` +
+      `📚 *Course:* ${selectedCourse.title}\n⚡ *Type:* ${type}\n💰 *Amount:* $${selectedCourse.price}\n` +
+      `🔖 *Ref:* ${currentPaymentRef}\n🏦 *KHQR (ABA)*\n🕒 *Registered:* ${new Date().toLocaleString()}\n\n` +
+      ` Payment slip attached above. Verify seat.`;
+    
+    try {
+      const imageBlob = new Blob([uploadedFile], { type: uploadedFile.type });
+      await sendPhotoToTelegram(caption, imageBlob);
+      showMessage(` Success! Enrollment submitted. Course: ${selectedCourse.title}`, false, true);
+      // reset
+      uploadedFile = null;
+      fileInput.value = '';
+      filePreview.style.display = 'none';
+      previewThumb.style.display = 'none';
+      studentName.value = '';
+      studentEmail.value = '';
+      studentPhone.value = '';
+      enrollType.value = "Full-time (12w)";
+      currentPaymentRef = generateRef();
+      updateUI();
+      selectedCourseDisplay.innerHTML = `${selectedCourse.title} · $${selectedCourse.price} · New Ref: ${currentPaymentRef}`;
+    } catch (err) {
+      showMessage(`❌ Telegram error: ${err.message}. Check Chat ID (${TELEGRAM_CHAT_ID})`, true);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = "📨 Enroll → NOW";
+    }
+  });
+
+  renderCourses();
+  if (coursesList.length) selectCourse(coursesList[0]);
+</script>
+</body>
+</html>
