@@ -3,19 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>CodeLumina Pro – Learn Programming, Design & Office</title>
-  <!-- Tailwind + Font Awesome + Vue.js CDN -->
+  <title>EDU_IT – Learn Programming, Design & Office</title>
+  <!-- Tailwind + Font Awesome + Vue.js + Bootstrap 5 CDN -->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
       -webkit-tap-highlight-color: transparent;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
+    
     body { 
       font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Helvetica, sans-serif;
       overflow-x: hidden;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: background-color 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1), color 0.4s ease;
+    }
+    
+    html {
+      scroll-behavior: smooth;
     }
     
     /* Light Theme */
@@ -24,19 +34,19 @@
       color: #0f172a;
     }
     body.light-theme .bg-card {
-      background-color: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(203, 213, 225, 0.5);
     }
     body.light-theme .border-theme { border-color: #cbd5e1; }
-    body.light-theme .text-secondary { color: #334155; }
-    body.light-theme .nav-bg { background: rgba(255, 255, 255, 0.95); border-bottom-color: #e2e8f0; }
-    body.light-theme .mobile-nav { background: rgba(255, 255, 255, 0.96); border-top-color: #e2e8f0; }
-    body.light-theme .course-card { background: white; border-color: #e2e8f0; }
+    body.light-theme .text-secondary { color: #475569; }
+    body.light-theme .nav-bg { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(20px); border-bottom-color: #e2e8f0; }
+    body.light-theme .mobile-nav { background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(20px); border-top-color: #e2e8f0; }
+    body.light-theme .course-card { background: white; border-color: #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
     body.light-theme .toast-notification { background: white; color: #0f172a; border-color: #4f46e5; }
     body.light-theme .category-chip { background: white; border-color: #cbd5e1; color: #334155; }
     body.light-theme .category-chip.active { background: #4f46e5; color: white; border-color: #4f46e5; }
     body.light-theme .banner-gradient { background: linear-gradient(135deg, #4f46e5, #7c3aed); }
-    body.light-theme .project-img-placeholder { background: #e0e7ff; }
     body.light-theme .about-banner { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
     
     /* Dark Theme */
@@ -44,30 +54,48 @@
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       color: #f1f5f9;
     }
-    body.dark-theme .bg-card { background-color: rgba(30, 41, 59, 0.85); backdrop-filter: blur(8px); }
+    body.dark-theme .bg-card { background: rgba(30, 41, 59, 0.92); backdrop-filter: blur(12px); border: 1px solid rgba(51, 65, 85, 0.5); }
     body.dark-theme .border-theme { border-color: #334155; }
     body.dark-theme .text-secondary { color: #94a3b8; }
-    body.dark-theme .nav-bg { background: rgba(15, 23, 42, 0.95); border-bottom-color: #334155; }
-    body.dark-theme .mobile-nav { background: rgba(15, 23, 42, 0.96); border-top-color: #334155; }
-    body.dark-theme .course-card { background: #1e293b; border-color: #334155; }
+    body.dark-theme .nav-bg { background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(20px); border-bottom-color: #334155; }
+    body.dark-theme .mobile-nav { background: rgba(15, 23, 42, 0.97); backdrop-filter: blur(20px); border-top-color: #334155; }
+    body.dark-theme .course-card { background: #1e293b; border-color: #334155; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
     body.dark-theme .toast-notification { background: #1e293b; color: #f1f5f9; border-color: #4f46e5; }
     body.dark-theme .category-chip { background: #1e293b; border-color: #475569; color: #cbd5e6; }
     body.dark-theme .category-chip.active { background: #4f46e5; color: white; border-color: #4f46e5; }
-    body.dark-theme .bg-indigo-50 { background-color: #1e293b; }
-    body.dark-theme .bg-slate-100 { background-color: #334155; }
     body.dark-theme input, body.dark-theme textarea, body.dark-theme select { background-color: #334155; border-color: #475569; color: #f1f5f9; }
     body.dark-theme .banner-gradient { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
-    body.dark-theme .project-img-placeholder { background: #334155; }
     body.dark-theme .about-banner { background: linear-gradient(135deg, #4c51bf 0%, #5b21b6 100%); }
     
-    .scroll-smooth { scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
-    .course-card { transition: transform 0.18s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.2s ease; will-change: transform; }
-    .course-card:active { transform: scale(0.97); }
-    button, .nav-btn { transition: all 0.2s ease; cursor: pointer; }
-    button:active, .nav-btn:active { transform: scale(0.96); }
-    .toast-notification { animation: slideUpFade 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
-    @keyframes slideUpFade { from { opacity: 0; transform: translateY(20px) translateX(-50%); } to { opacity: 1; transform: translateY(0) translateX(-50%); } }
+    /* Smooth transitions - NO HOVER EFFECTS, just fluid animations */
+    .course-card, button, a, .category-chip, .social-icon, .stat-card {
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
     
+    /* Page transition animations */
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .fade-enter, .fade-leave-to {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    
+    /* Toast animation */
+    .toast-notification {
+      animation: slideUpFade 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    @keyframes slideUpFade {
+      from { opacity: 0; transform: translateY(30px) translateX(-50%); }
+      to { opacity: 1; transform: translateY(0) translateX(-50%); }
+    }
+    
+    /* Counter animation */
+    .counter-number {
+      transition: all 0.3s ease;
+    }
+    
+    /* Responsive adjustments */
     @media (max-width: 768px) {
       .desktop-nav { display: none; }
       .mobile-nav-bar { display: flex; justify-content: center; }
@@ -79,70 +107,120 @@
       .desktop-nav { display: flex; }
     }
     
-    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .custom-scroll::-webkit-scrollbar { width: 3px; }
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .custom-scroll::-webkit-scrollbar { width: 4px; }
     .custom-scroll::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 10px; }
     .custom-scroll::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 10px; }
     body.dark-theme .custom-scroll::-webkit-scrollbar-track { background: #334155; }
-    .center-button-wrapper { display: flex; justify-content: center; margin-top: 1rem; }
-    .mobile-nav-bar .flex { justify-content: center; gap: 0.25rem; }
-    .theme-toggle { transition: all 0.3s ease; }
-    .banner-gradient { background: linear-gradient(135deg, #4f46e5, #7c3aed); }
-    .social-icon { transition: transform 0.2s ease; }
-    .social-icon:hover { transform: translateY(-2px); }
-    .project-img-placeholder { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-    .about-banner { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-    .counter-number { font-size: 2.5rem; font-weight: 800; }
-    @media (min-width: 768px) { .counter-number { font-size: 3rem; } }
+    
+    .social-icon {
+      transition: all 0.2s ease;
+    }
+    
+    .counter-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    @media (min-width: 768px) { 
+      .counter-number { font-size: 3rem; } 
+    }
+    
+    /* Modal smooth appearance */
+    .modal-content {
+      animation: modalFadeIn 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    
+    body.dark-theme .modal-content {
+      background-color: #1e293b;
+      color: #f1f5f9;
+      border-color: #4f46e5;
+    }
+    body.dark-theme .btn-close {
+      filter: invert(1);
+    }
+    
+    /* Blog card style - clean and modern */
+    .blog-card {
+      transition: all 0.3s ease;
+    }
+    
+    /* Pulse animation for banner */
+    @keyframes softPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.9; }
+    }
+    .pulse-soft {
+      animation: softPulse 2s ease-in-out infinite;
+    }
   </style>
 </head>
 <body class="light-theme scroll-smooth">
 
 <div id="app">
   <!-- DESKTOP NAVIGATION -->
-  <nav class="nav-bg backdrop-blur-md border-b sticky top-0 z-30 desktop-nav shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center py-3">
-        <div class="flex items-center space-x-2 cursor-pointer" @click="currentView='home'">
-          <i class="fas fa-laptop-code text-indigo-600 dark:text-indigo-400 text-xl md:text-2xl"></i>
-          <h1 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-600 to-cyan-600 bg-clip-text text-transparent">CodeLumina Pro</h1>
-        </div>
-        <div class="flex items-center gap-6">
-          <a href="#" @click.prevent="currentView='home'" :class="{'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600': currentView === 'home'}" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition text-slate-700 dark:text-slate-300 font-medium">Home</a>
-          <a href="#" @click.prevent="currentView='courses'" :class="{'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600': currentView === 'courses'}" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition text-slate-700 dark:text-slate-300 font-medium">Courses</a>
-          <a href="#" @click.prevent="currentView='about'" :class="{'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600': currentView === 'about'}" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition text-slate-700 dark:text-slate-300 font-medium">About</a>
-          <a href="#" @click.prevent="currentView='contact'" :class="{'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600': currentView === 'contact'}" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition text-slate-700 dark:text-slate-300 font-medium">Contact</a>
-          <button v-if="!isRegistered" @click="openRegisterModal" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-1.5 rounded-full text-sm font-semibold shadow-md transition">📝 Register</button>
-          <div v-else class="flex items-center gap-2 bg-indigo-100 dark:bg-indigo-900/40 px-3 py-1 rounded-full"><i class="fas fa-user-check text-indigo-600 dark:text-indigo-400"></i><span class="text-sm truncate max-w-[120px] text-slate-700 dark:text-slate-300">{{ studentName }}</span></div>
-          <button @click="toggleTheme" class="theme-toggle w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center shadow-sm">
-            <i class="fas fa-sun text-yellow-500 text-lg hidden dark:inline-block"></i>
-            <i class="fas fa-moon text-slate-700 text-lg inline-block dark:hidden"></i>
-          </button>
+  <transition name="fade">
+    <nav class="nav-bg backdrop-blur-md border-b sticky top-0 z-30 desktop-nav shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-3">
+          <div class="flex items-center space-x-2 cursor-pointer" @click="currentView='home'">
+            <i class="fas fa-laptop-code text-indigo-600 dark:text-indigo-400 text-xl md:text-2xl transition-transform duration-300"></i>
+            <h1 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-600 to-cyan-600 bg-clip-text text-transparent">EDU_IT</h1>
+          </div>
+          <div class="flex items-center gap-6">
+            <a href="#" @click.prevent="currentView='home'" :class="{'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600': currentView === 'home'}" class="transition-all duration-300 text-slate-700 dark:text-slate-300 font-medium pb-1">Home</a>
+            <a href="#" @click.prevent="currentView='courses'" :class="{'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600': currentView === 'courses'}" class="transition-all duration-300 text-slate-700 dark:text-slate-300 font-medium pb-1">Courses</a>
+            <a href="#" @click.prevent="currentView='about'" :class="{'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600': currentView === 'about'}" class="transition-all duration-300 text-slate-700 dark:text-slate-300 font-medium pb-1">About</a>
+            <a href="#" @click.prevent="currentView='contact'" :class="{'text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600': currentView === 'contact'}" class="transition-all duration-300 text-slate-700 dark:text-slate-300 font-medium pb-1">Contact</a>
+            <button v-if="!isRegistered" @click="openRegisterModal" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-1.5 rounded-full text-sm font-semibold shadow-md transition-all duration-300">📝 Register</button>
+            <div v-else class="flex items-center gap-2 bg-indigo-100 dark:bg-indigo-900/40 px-3 py-1 rounded-full"><i class="fas fa-user-check text-indigo-600 dark:text-indigo-400"></i><span class="text-sm truncate max-w-[120px] text-slate-700 dark:text-slate-300">{{ studentName }}</span></div>
+            <button @click="toggleTheme" class="theme-toggle w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center shadow-md transition-all duration-300">
+              <i class="fas fa-sun text-yellow-500 text-lg hidden dark:inline-block"></i>
+              <i class="fas fa-moon text-slate-700 text-lg inline-block dark:hidden"></i>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </transition>
 
   <!-- MOBILE BOTTOM NAVIGATION -->
-  <div class="mobile-nav-bar fixed bottom-0 left-0 right-0 z-40 shadow-xl safe-bottom" style="padding-bottom: env(safe-area-inset-bottom, 0px);">
-    <div class="flex justify-center items-center gap-2 py-2 px-2">
-      <button @click="currentView='home'" class="flex flex-col items-center py-1.5 px-3 rounded-xl transition-all duration-150" :class="currentView === 'home' ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/40 scale-105' : 'text-slate-500 dark:text-slate-400'">
+  <div class="mobile-nav-bar fixed bottom-0 left-0 right-0 z-40 shadow-lg safe-bottom" style="padding-bottom: env(safe-area-inset-bottom, 0px);">
+    <div class="flex justify-center items-center gap-1 py-2 px-2">
+      <button @click="currentView='home'" class="flex flex-col items-center py-1.5 px-3 rounded-xl transition-all duration-200" :class="currentView === 'home' ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/40' : 'text-slate-500 dark:text-slate-400'">
         <i class="fas fa-home text-lg"></i><span class="text-[10px] mt-0.5 font-medium">Home</span>
       </button>
-      <button @click="currentView='courses'" class="flex flex-col items-center py-1.5 px-3 rounded-xl transition-all duration-150" :class="currentView === 'courses' ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/40 scale-105' : 'text-slate-500 dark:text-slate-400'">
+      <button @click="currentView='courses'" class="flex flex-col items-center py-1.5 px-3 rounded-xl transition-all duration-200" :class="currentView === 'courses' ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/40' : 'text-slate-500 dark:text-slate-400'">
         <i class="fas fa-book-open text-lg"></i><span class="text-[10px] mt-0.5 font-medium">Courses</span>
       </button>
-      <button @click="currentView='about'" class="flex flex-col items-center py-1.5 px-3 rounded-xl transition-all duration-150" :class="currentView === 'about' ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/40 scale-105' : 'text-slate-500 dark:text-slate-400'">
+      <button @click="currentView='about'" class="flex flex-col items-center py-1.5 px-3 rounded-xl transition-all duration-200" :class="currentView === 'about' ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/40' : 'text-slate-500 dark:text-slate-400'">
         <i class="fas fa-info-circle text-lg"></i><span class="text-[10px] mt-0.5 font-medium">About</span>
       </button>
-      <button @click="currentView='contact'" class="flex flex-col items-center py-1.5 px-3 rounded-xl transition-all duration-150" :class="currentView === 'contact' ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/40 scale-105' : 'text-slate-500 dark:text-slate-400'">
+      <button @click="currentView='contact'" class="flex flex-col items-center py-1.5 px-3 rounded-xl transition-all duration-200" :class="currentView === 'contact' ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/40' : 'text-slate-500 dark:text-slate-400'">
         <i class="fas fa-envelope text-lg"></i><span class="text-[10px] mt-0.5 font-medium">Contact</span>
       </button>
-      <button v-if="!isRegistered" @click="openRegisterModal" class="flex flex-col items-center py-1.5 px-4 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md">
+      <button v-if="!isRegistered" @click="openRegisterModal" class="flex flex-col items-center py-1.5 px-4 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md transition-all duration-200">
         <i class="fas fa-user-plus text-sm"></i><span class="text-[9px] mt-0.5 font-bold">Join</span>
       </button>
       <div v-else class="flex items-center gap-1 bg-indigo-100 dark:bg-indigo-900/40 px-2 py-1 rounded-full"><i class="fas fa-user-check text-indigo-600 dark:text-indigo-400 text-xs"></i><span class="text-[9px] truncate max-w-[50px] font-medium text-slate-700 dark:text-slate-300">{{ studentName.split(' ')[0] }}</span></div>
-      <button @click="toggleTheme" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
+      <button @click="toggleTheme" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center transition-all duration-200">
         <i class="fas fa-sun text-yellow-500 text-xs hidden dark:inline-block"></i>
         <i class="fas fa-moon text-slate-700 text-xs inline-block dark:hidden"></i>
       </button>
@@ -150,217 +228,239 @@
   </div>
 
   <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-5 pb-28 md:pb-8">
-    
-    <!-- HOME VIEW -->
-    <div v-if="currentView === 'home'" class="animate-fade-in">
-      <div class="banner-gradient rounded-2xl p-4 mb-6 text-white shadow-lg">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-3">
-          <div class="flex items-center gap-3"><i class="fas fa-graduation-cap text-3xl"></i><div><h3 class="font-bold text-lg">Special Offer</h3><p class="text-sm opacity-95">Enroll now & get 30% off on first course + Free consultation</p></div></div>
-          <button @click="currentView='courses'" class="bg-white/20 hover:bg-white/30 backdrop-blur px-4 py-2 rounded-full text-sm font-semibold transition">Explore Now →</button>
-        </div>
-      </div>
-      
-      <div class="text-center py-4 md:py-8">
-        <div class="inline-block p-3 bg-indigo-100 dark:bg-indigo-900/30 rounded-full mb-3"><i class="fas fa-laptop-code text-3xl text-indigo-600 dark:text-indigo-400"></i></div>
-        <h2 class="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Learn to Code, Design & Create</h2>
-        <p class="text-slate-600 dark:text-slate-400 mt-2 text-sm md:text-base max-w-2xl mx-auto px-2">💻 Programming · Design · Office ·AI ·Video Editing</p>
-      </div>
-      
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mt-4">
-        <div class="bg-card p-5 rounded-2xl text-center border border-theme shadow-sm hover:shadow-md transition cursor-pointer" @click="filterByCategory('Prog')">
-          <div class="project-img-placeholder w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-3 shadow-md"><i class="fas fa-code text-3xl text-white"></i></div>
-          <h3 class="text-lg md:text-xl font-bold mb-2">50+ Programming Courses</h3>
-          <p class="text-secondary text-xs">C, C++, Python, Java, PHP, C#, Dart, Vue.js, Laravel</p>
-          <div class="mt-3 text-indigo-600 dark:text-indigo-400 text-sm font-medium">Browse →</div>
+    <transition name="fade" mode="out-in">
+      <!-- HOME VIEW -->
+      <div v-if="currentView === 'home'" key="home">
+        <div class="banner-gradient rounded-2xl p-4 md:p-5 mb-6 text-white shadow-xl transition-all duration-300">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-3"><i class="fas fa-graduation-cap text-3xl md:text-4xl pulse-soft"></i><div><h3 class="font-bold text-lg md:text-xl"> Special Offer</h3><p class="text-sm opacity-95">Enroll now & get 30% off on first course + Free consultation</p></div></div>
+            <button @click="currentView='courses'" class="bg-white/20 hover:bg-white/30 backdrop-blur px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300">Explore Now →</button>
+          </div>
         </div>
         
-        <div class="bg-card p-5 rounded-2xl text-center border border-theme shadow-sm hover:shadow-md transition cursor-pointer" @click="filterByCategory('Office')">
-          <div class="project-img-placeholder w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-3 shadow-md"><i class="fas fa-file-excel text-3xl text-white"></i></div>
-          <h3 class="text-lg md:text-xl font-bold mb-2">Microsoft Office Courses</h3>
-          <p class="text-secondary text-xs">Word, Excel, PowerPoint, Advanced Excel, Data Analysis</p>
-          <div class="mt-3 text-green-600 dark:text-green-400 text-sm font-medium">Browse →</div>
+        <div class="text-center py-4 md:py-8">
+          <div class="inline-block p-3 bg-indigo-100 dark:bg-indigo-900/30 rounded-full mb-3 transition-all duration-300"><i class="fas fa-laptop-code text-3xl text-indigo-600 dark:text-indigo-400"></i></div>
+          <h2 class="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Learn to Code, Design & Create</h2>
+          <p class="text-slate-600 dark:text-slate-400 mt-2 text-sm md:text-base max-w-2xl mx-auto px-2">💻 Programming · 🎨 Design · 📊 Office · 🤖 AI · 🎬 Video Editing</p>
         </div>
         
-        <div class="bg-card p-5 rounded-2xl text-center border border-theme shadow-sm hover:shadow-md transition cursor-pointer" @click="filterByCategory('Design')">
-          <div class="project-img-placeholder w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-3 shadow-md"><i class="fas fa-palette text-3xl text-white"></i></div>
-          <h3 class="text-lg md:text-xl font-bold mb-2">Design & Video Editing</h3>
-          <p class="text-secondary text-xs">Photoshop, Illustrator, Premiere Pro, After Effects, Capcut</p>
-          <div class="mt-3 text-pink-600 dark:text-pink-400 text-sm font-medium">Browse →</div>
+        <!-- Blog Style Categories -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+          <div class="bg-card rounded-2xl overflow-hidden shadow-md transition-all duration-300 cursor-pointer" @click="filterByCategory('Prog')">
+            <div class="h-32 bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center"><i class="fas fa-code text-5xl text-white opacity-80"></i></div>
+            <div class="p-5">
+              <h3 class="text-xl font-bold mb-2">📱 Programming</h3>
+              <p class="text-secondary text-sm">C, C++, Python, Java, PHP, C#, Dart, Vue.js, Laravel, React, Angular</p>
+              <div class="mt-4 flex items-center text-indigo-600 dark:text-indigo-400 text-sm font-medium">Browse 50+ courses <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1"></i></div>
+            </div>
+          </div>
+          
+          <div class="bg-card rounded-2xl overflow-hidden shadow-md transition-all duration-300 cursor-pointer" @click="filterByCategory('Office')">
+            <div class="h-32 bg-gradient-to-r from-green-500 to-emerald-600 flex items-center justify-center"><i class="fas fa-file-excel text-5xl text-white opacity-80"></i></div>
+            <div class="p-5">
+              <h3 class="text-xl font-bold mb-2">📊 Microsoft Office</h3>
+              <p class="text-secondary text-sm">Word, Excel, PowerPoint, Advanced Excel, Data Analysis, VBA Macros</p>
+              <div class="mt-4 flex items-center text-green-600 dark:text-green-400 text-sm font-medium">Browse all courses <i class="fas fa-arrow-right ml-2 transition-transform duration-300"></i></div>
+            </div>
+          </div>
+          
+          <div class="bg-card rounded-2xl overflow-hidden shadow-md transition-all duration-300 cursor-pointer" @click="filterByCategory('Design')">
+            <div class="h-32 bg-gradient-to-r from-pink-500 to-rose-600 flex items-center justify-center"><i class="fas fa-palette text-5xl text-white opacity-80"></i></div>
+            <div class="p-5">
+              <h3 class="text-xl font-bold mb-2">🎨 Design & Video</h3>
+              <p class="text-secondary text-sm">Photoshop, Illustrator, Premiere Pro, After Effects, Capcut, Cinema 4D</p>
+              <div class="mt-4 flex items-center text-pink-600 dark:text-pink-400 text-sm font-medium">Explore design courses <i class="fas fa-arrow-right ml-2 transition-transform duration-300"></i></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+          <div class="bg-card p-3 rounded-xl shadow-sm transition-all duration-300"><i class="fas fa-certificate text-indigo-600 dark:text-indigo-400 text-xl"></i><p class="text-xs mt-1 font-medium">Certified</p></div>
+          <div class="bg-card p-3 rounded-xl shadow-sm transition-all duration-300"><i class="fas fa-clock text-indigo-600 dark:text-indigo-400 text-xl"></i><p class="text-xs mt-1 font-medium">24/7 Support</p></div>
+          <div class="bg-card p-3 rounded-xl shadow-sm transition-all duration-300"><i class="fas fa-users text-indigo-600 dark:text-indigo-400 text-xl"></i><p class="text-xs mt-1 font-medium">5000+ Students</p></div>
+          <div class="bg-card p-3 rounded-xl shadow-sm transition-all duration-300"><i class="fas fa-robot text-indigo-600 dark:text-indigo-400 text-xl"></i><p class="text-xs mt-1 font-medium">AI Assistance</p></div>
         </div>
       </div>
-      
-      <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
-        <div class="bg-card p-3 rounded-xl border border-theme"><i class="fas fa-certificate text-indigo-600 dark:text-indigo-400 text-xl"></i><p class="text-xs mt-1 font-medium">Certified</p></div>
-        <div class="bg-card p-3 rounded-xl border border-theme"><i class="fas fa-clock text-indigo-600 dark:text-indigo-400 text-xl"></i><p class="text-xs mt-1 font-medium">24/7 Support</p></div>
-        <div class="bg-card p-3 rounded-xl border border-theme"><i class="fas fa-users text-indigo-600 dark:text-indigo-400 text-xl"></i><p class="text-xs mt-1 font-medium">5000+ Students</p></div>
-        <div class="bg-card p-3 rounded-xl border border-theme"><i class="fas fa-robot text-indigo-600 dark:text-indigo-400 text-xl"></i><p class="text-xs mt-1 font-medium">AI Assistance</p></div>
-      </div>
-    </div>
 
-    <!-- COURSES VIEW -->
-    <div v-if="currentView === 'courses'">
-      <div class="mb-4 text-center">
-        <h2 class="text-2xl md:text-3xl font-extrabold">📖 Course Catalog</h2>
-        <p class="text-secondary text-xs">Filter by category or search for specific course</p>
-      </div>
-      
-      <div class="max-w-md mx-auto mb-4">
-        <div class="relative">
-          <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary text-sm"></i>
-          <input type="text" v-model="searchQuery" placeholder="🔍 Search course name..." class="w-full bg-card border border-theme rounded-full py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+      <!-- COURSES VIEW - Blog Style Layout -->
+      <div v-if="currentView === 'courses'" key="courses">
+        <div class="mb-6 text-center">
+          <h2 class="text-3xl md:text-4xl font-extrabold">📖 Course Blog</h2>
+          <p class="text-secondary text-sm mt-1">Discover our latest courses and learning paths</p>
+        </div>
+        
+        <div class="max-w-md mx-auto mb-6">
+          <div class="relative">
+            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary text-sm"></i>
+            <input type="text" v-model="searchQuery" placeholder="Search courses..." class="w-full bg-card border border-theme rounded-full py-3 pl-10 pr-4 text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all duration-300">
+          </div>
+        </div>
+        
+        <div class="flex flex-wrap justify-center gap-2 mb-6">
+          <button @click="selectedCategory = ''" :class="selectedCategory === '' ? 'bg-indigo-600 text-white shadow-md' : 'category-chip'" class="px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-300 shadow-sm border">📚 All Posts</button>
+          <button v-for="cat in uniqueCategories" :key="cat" @click="selectedCategory = cat" :class="selectedCategory === cat ? 'bg-indigo-600 text-white shadow-md' : 'category-chip'" class="px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-300 shadow-sm border">{{ cat }}</button>
+        </div>
+        
+        <p class="text-center text-secondary text-sm mb-4">Showing {{ filteredCourses.length }} courses</p>
+        
+        <!-- Blog Style Course Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div v-for="course in filteredCourses" :key="course.id" class="bg-card rounded-2xl overflow-hidden border shadow-sm transition-all duration-300 blog-card">
+            <div class="h-40 flex items-center justify-center" :class="course.bgColor">
+              <i :class="course.icon" class="text-5xl md:text-6xl text-white drop-shadow-lg"></i>
+            </div>
+            <div class="p-5">
+              <div class="flex justify-between items-start mb-2">
+                <span class="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 text-xs px-2 py-1 rounded-full">{{ course.category }}</span>
+                <div class="flex items-center gap-1 text-amber-500 text-sm"><i class="fas fa-star text-xs"></i> {{ course.rating }}</div>
+              </div>
+              <h3 class="text-lg font-bold mb-2 line-clamp-1">{{ course.title }}</h3>
+              <p class="text-secondary text-sm mb-3 line-clamp-2">{{ course.description }}</p>
+              <div class="flex justify-between items-center pt-3 border-t border-theme">
+                <div class="text-xl font-bold text-indigo-600 dark:text-indigo-400">${{ course.price }}</div>
+                <button @click="enrollCourse(course)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 shadow-sm">Enroll Now →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div v-if="filteredCourses.length === 0" class="text-center py-12">
+          <i class="fas fa-search text-5xl text-secondary mb-4"></i>
+          <p class="text-secondary">No courses found. Try different search or category.</p>
         </div>
       </div>
-      
-      <div class="flex flex-wrap justify-center gap-2 mb-5">
-        <button @click="selectedCategory = ''" :class="selectedCategory === '' ? 'bg-indigo-600 text-white' : 'category-chip'" class="px-3 py-1.5 rounded-full text-xs font-medium transition shadow-sm border">📚 All</button>
-        <button v-for="cat in uniqueCategories" :key="cat" @click="selectedCategory = cat" :class="selectedCategory === cat ? 'bg-indigo-600 text-white' : 'category-chip'" class="px-3 py-1.5 rounded-full text-xs font-medium transition shadow-sm border">{{ cat }}</button>
+
+      <!-- ABOUT VIEW -->
+      <div v-if="currentView === 'about'" key="about">
+        <div class="about-banner rounded-2xl p-8 md:p-12 mb-8 text-white shadow-xl transition-all duration-300">
+          <div class="text-center">
+            <i class="fas fa-chalkboard-user text-5xl md:text-6xl mb-4 opacity-90"></i>
+            <h1 class="text-3xl md:text-5xl font-bold mb-3">About EDU_IT</h1>
+            <p class="text-base md:text-lg max-w-2xl mx-auto opacity-95">Empowering students with 5+ years of expertise in programming, design, and software development</p>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div class="bg-card rounded-2xl p-5 text-center border shadow-sm transition-all duration-300">
+            <i class="fas fa-calendar-alt text-indigo-600 dark:text-indigo-400 text-3xl mb-2"></i>
+            <div class="counter-number font-bold text-indigo-600 dark:text-indigo-400" ref="counter1">5</div>
+            <p class="text-secondary text-sm font-medium">Years Experience</p>
+          </div>
+          <div class="bg-card rounded-2xl p-5 text-center border shadow-sm transition-all duration-300">
+            <i class="fas fa-building text-indigo-600 dark:text-indigo-400 text-3xl mb-2"></i>
+            <div class="counter-number font-bold text-indigo-600 dark:text-indigo-400" ref="counter2">20</div>
+            <p class="text-secondary text-sm font-medium">Companies Partnered</p>
+          </div>
+          <div class="bg-card rounded-2xl p-5 text-center border shadow-sm transition-all duration-300">
+            <i class="fas fa-laptop-code text-indigo-600 dark:text-indigo-400 text-3xl mb-2"></i>
+            <div class="counter-number font-bold text-indigo-600 dark:text-indigo-400" ref="counter3">50</div>
+            <p class="text-secondary text-sm font-medium">Software Projects</p>
+          </div>
+          <div class="bg-card rounded-2xl p-5 text-center border shadow-sm transition-all duration-300">
+            <i class="fas fa-users text-indigo-600 dark:text-indigo-400 text-3xl mb-2"></i>
+            <div class="counter-number font-bold text-indigo-600 dark:text-indigo-400" ref="counter4">5000</div>
+            <p class="text-secondary text-sm font-medium">Happy Students</p>
+          </div>
+        </div>
+        
+        <div class="bg-card rounded-2xl p-6 md:p-8 border shadow-sm">
+          <div class="flex flex-col md:flex-row gap-8 items-start">
+            <div class="flex-1">
+              <h3 class="text-xl font-bold mb-3 flex items-center gap-2"><i class="fas fa-flag-checkered text-indigo-600"></i> Our Mission</h3>
+              <p class="text-secondary text-sm leading-relaxed">To provide high-quality, accessible education in programming, design, and software development. We bridge the gap between theoretical knowledge and real-world application through hands-on projects and industry expert guidance.</p>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold mb-3 flex items-center gap-2"><i class="fas fa-eye text-indigo-600"></i> Our Vision</h3>
+              <p class="text-secondary text-sm leading-relaxed">To become Cambodia's leading tech education hub, producing skilled professionals who drive digital innovation and economic growth across the region.</p>
+            </div>
+          </div>
+          
+          <div class="mt-6 border-t border-theme pt-6">
+            <h3 class="font-bold text-lg mb-3">🏢 Trusted By Leading Companies</h3>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs transition-all duration-200">🏦 ABA Bank</span>
+              <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs transition-all duration-200">📱 Wing Bank</span>
+              <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs transition-all duration-200">🛒 SM Mall</span>
+              <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs transition-all duration-200">🏨 Sokha Hotel</span>
+              <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs transition-all duration-200">🚗 Grab Cambodia</span>
+              <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs transition-all duration-200">📦 E-commerce Platform</span>
+              <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs transition-all duration-200">🏥 Medical System</span>
+              <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs transition-all duration-200">🎓 Education ERP</span>
+              <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs transition-all duration-200">💼 HR Management</span>
+              <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs transition-all duration-200">📊 Data Analytics</span>
+              <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs transition-all duration-200">🤖 AI Solutions</span>
+            </div>
+            <p class="text-secondary text-sm mt-3">We have developed many types of programs such as: POS System, Stock Management, Mobile Banking App, Website Corporate, Learning Management System, AI Chatbot, Video Editor Tool, and more...</p>
+          </div>
+          
+          <div class="mt-6 grid grid-cols-2 gap-4 text-center pt-4 border-t border-theme">
+            <div class="transition-all duration-300"><i class="fas fa-certificate text-indigo-600 dark:text-indigo-400 text-2xl"></i><p class="font-bold text-sm mt-1">Certified Trainers</p></div>
+            <div class="transition-all duration-300"><i class="fas fa-headset text-indigo-600 dark:text-indigo-400 text-2xl"></i><p class="font-bold text-sm mt-1">24/7 Telegram Support</p></div>
+          </div>
+        </div>
       </div>
-      
-      <p class="text-center text-secondary text-xs mb-3">Found {{ filteredCourses.length }} courses</p>
-      
-      <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
-        <div v-for="course in filteredCourses" :key="course.id" class="course-card rounded-xl overflow-hidden border shadow-sm">
-          <div class="h-20 md:h-24 flex items-center justify-center" :class="course.bgColor"><i :class="course.icon" class="text-3xl md:text-5xl text-white drop-shadow-md"></i></div>
-          <div class="p-2.5 md:p-3">
-            <div class="flex justify-between items-start gap-1"><h3 class="text-xs md:text-sm font-bold leading-tight">{{ course.title }}</h3><span class="bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 text-[9px] md:text-[10px] px-1.5 py-0.5 rounded-full whitespace-nowrap">{{ course.category }}</span></div>
-            <p class="text-secondary text-[9px] md:text-xs mt-1 line-clamp-2">{{ course.description }}</p>
-            <div class="flex justify-between items-center mt-2"><div class="flex items-center gap-0.5 text-amber-500 text-[9px]"><i class="fas fa-star text-[8px]"></i> {{ course.rating }}</div><div class="text-sm md:text-base font-bold text-indigo-600 dark:text-indigo-400 price-text">${{ course.price }}</div></div>
-            <div class="flex justify-center mt-2">
-              <button @click="enrollCourse(course)" class="w-full py-1.5 rounded-lg font-medium text-[10px] md:text-xs transition-all bg-indigo-600 hover:bg-indigo-700 text-white active:scale-95 shadow-sm">Register Now</button>
+
+      <!-- CONTACT VIEW -->
+      <div v-if="currentView === 'contact'" key="contact" class="max-w-2xl mx-auto bg-card rounded-2xl p-6 border shadow-sm transition-all duration-300">
+        <h2 class="text-2xl font-bold text-center">📩 Contact Us</h2>
+        <p class="text-secondary text-center text-sm mb-5">Get in touch with us through any channel below</p>
+        
+        <div class="space-y-3 mb-5">
+          <div class="flex items-center gap-3 p-3 bg-slate-100 dark:bg-slate-800 rounded-xl transition-all duration-300"><i class="fas fa-phone-alt text-indigo-600 dark:text-indigo-400 text-lg w-8"></i><div><p class="font-semibold text-sm">Phone / Telegram</p><p class="text-sm">+855 99 822 579</p></div></div>
+          <div class="flex items-center gap-3 p-3 bg-slate-100 dark:bg-slate-800 rounded-xl transition-all duration-300"><i class="fas fa-envelope text-indigo-600 dark:text-indigo-400 text-lg w-8"></i><div><p class="font-semibold text-sm">Email</p><p class="text-sm">khemoun4@gmail.com</p></div></div>
+          <div class="flex items-center gap-3 p-3 bg-slate-100 dark:bg-slate-800 rounded-xl transition-all duration-300"><i class="fab fa-telegram text-indigo-600 dark:text-indigo-400 text-lg w-8"></i><div><p class="font-semibold text-sm">Telegram</p><p class="text-sm">@khemoun1</p></div></div>
+        </div>
+        
+        <div class="text-center mb-5">
+          <p class="text-sm font-semibold mb-3">Follow us on Social Media</p>
+          <div class="flex justify-center gap-4">
+            <a href="#" class="social-icon w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white shadow-md transition-all duration-300"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon w-10 h-10 bg-black rounded-full flex items-center justify-center text-white shadow-md transition-all duration-300"><i class="fab fa-tiktok"></i></a>
+            <a href="#" class="social-icon w-10 h-10 bg-sky-500 rounded-full flex items-center justify-center text-white shadow-md transition-all duration-300"><i class="fab fa-telegram-plane"></i></a>
+            <a href="#" class="social-icon w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center text-white shadow-md transition-all duration-300"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        
+        <div class="border-t border-theme pt-4">
+          <p class="text-center text-secondary text-xs mb-3">Or send us a message directly</p>
+          <div class="space-y-3">
+            <input v-model="contactName" type="text" placeholder="Full Name" class="w-full rounded-xl p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none border transition-all duration-300">
+            <input v-model="contactEmail" type="email" placeholder="Email Address" class="w-full rounded-xl p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none border transition-all duration-300">
+            <textarea v-model="contactMessage" rows="3" placeholder="Your message..." class="w-full rounded-xl p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none border transition-all duration-300"></textarea>
+            <div class="flex justify-center">
+              <button @click="sendContactToTelegram" :disabled="sending" class="w-full md:w-auto min-w-[200px] bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-semibold transition-all duration-300 text-sm shadow-md">{{ sending ? 'Sending...' : '📤 Send to admin' }}</button>
             </div>
           </div>
         </div>
       </div>
-      
-      <div v-if="filteredCourses.length === 0" class="text-center py-10">
-        <i class="fas fa-search text-4xl text-secondary mb-3"></i>
-        <p class="text-secondary">No courses found. Try different search or category.</p>
-      </div>
-    </div>
-
-    <!-- ABOUT VIEW with BANNER -->
-    <div v-if="currentView === 'about'">
-      <!-- Hero Banner for About Page -->
-      <div class="about-banner rounded-2xl p-6 md:p-10 mb-8 text-white shadow-xl">
-        <div class="text-center">
-          <i class="fas fa-chalkboard-user text-5xl md:text-6xl mb-4 opacity-90"></i>
-          <h1 class="text-3xl md:text-5xl font-bold mb-3">About CodeLumina Pro</h1>
-          <p class="text-base md:text-lg max-w-2xl mx-auto opacity-95">Empowering students with 5+ years of expertise in programming, design, and software development</p>
-        </div>
-      </div>
-      
-      <!-- Stats Counter Section -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <div class="bg-card rounded-2xl p-5 text-center border border-theme shadow-sm">
-          <i class="fas fa-calendar-alt text-indigo-600 dark:text-indigo-400 text-3xl mb-2"></i>
-          <p class="counter-number font-bold text-indigo-600 dark:text-indigo-400">5+</p>
-          <p class="text-secondary text-sm font-medium">Years Experience</p>
-        </div>
-        <div class="bg-card rounded-2xl p-5 text-center border border-theme shadow-sm">
-          <i class="fas fa-building text-indigo-600 dark:text-indigo-400 text-3xl mb-2"></i>
-          <p class="counter-number font-bold text-indigo-600 dark:text-indigo-400">20+</p>
-          <p class="text-secondary text-sm font-medium">Companies Partnered</p>
-        </div>
-        <div class="bg-card rounded-2xl p-5 text-center border border-theme shadow-sm">
-          <i class="fas fa-laptop-code text-indigo-600 dark:text-indigo-400 text-3xl mb-2"></i>
-          <p class="counter-number font-bold text-indigo-600 dark:text-indigo-400">50+</p>
-          <p class="text-secondary text-sm font-medium">Software Projects</p>
-        </div>
-        <div class="bg-card rounded-2xl p-5 text-center border border-theme shadow-sm">
-          <i class="fas fa-users text-indigo-600 dark:text-indigo-400 text-3xl mb-2"></i>
-          <p class="counter-number font-bold text-indigo-600 dark:text-indigo-400">5000+</p>
-          <p class="text-secondary text-sm font-medium">Happy Students</p>
-        </div>
-      </div>
-      
-      <!-- Main Content -->
-      <div class="bg-card rounded-2xl p-6 md:p-8 border border-theme shadow-sm">
-        <div class="flex flex-col md:flex-row gap-8 items-start">
-          <div class="flex-1">
-            <h3 class="text-xl font-bold mb-3 flex items-center gap-2"><i class="fas fa-flag-checkered text-indigo-600"></i> Our Mission</h3>
-            <p class="text-secondary text-sm leading-relaxed">To provide high-quality, accessible education in programming, design, and software development. We bridge the gap between theoretical knowledge and real-world application through hands-on projects and industry expert guidance.</p>
-          </div>
-          <div class="flex-1">
-            <h3 class="text-xl font-bold mb-3 flex items-center gap-2"><i class="fas fa-eye text-indigo-600"></i> Our Vision</h3>
-            <p class="text-secondary text-sm leading-relaxed">To become Cambodia's leading tech education hub, producing skilled professionals who drive digital innovation and economic growth across the region.</p>
-          </div>
-        </div>
-        
-        <div class="mt-6 border-t border-theme pt-6">
-          <h3 class="font-bold text-lg mb-3">🏢 Trusted By Leading Companies</h3>
-          <div class="flex flex-wrap gap-2 mb-4">
-            <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs">🏦 ABA Bank</span>
-            <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs">📱 Wing Bank</span>
-            <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs">🛒 SM Mall</span>
-            <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs">🏨 Sokha Hotel</span>
-            <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs">🚗 Grab Cambodia</span>
-            <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs">📦 E-commerce Platform</span>
-            <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs">🏥 Medical System</span>
-            <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs">🎓 Education ERP</span>
-          </div>
-          <p class="text-secondary text-sm mt-3">We have developed many types of programs such as: POS System, Stock Management, Mobile Banking App, Website Corporate, Learning Management System, AI Chatbot, Video Editor Tool, and more...</p>
-        </div>
-        
-        <div class="mt-6 grid grid-cols-2 gap-4 text-center pt-4 border-t border-theme">
-          <div><i class="fas fa-certificate text-indigo-600 dark:text-indigo-400 text-2xl"></i><p class="font-bold text-sm mt-1">Certified Trainers</p></div>
-          <div><i class="fas fa-headset text-indigo-600 dark:text-indigo-400 text-2xl"></i><p class="font-bold text-sm mt-1">24/7 Telegram Support</p></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CONTACT VIEW -->
-    <div v-if="currentView === 'contact'" class="max-w-2xl mx-auto bg-card rounded-2xl p-5 md:p-6 border border-theme shadow-sm">
-      <h2 class="text-xl md:text-2xl font-bold text-center">📩 Contact Us</h2>
-      <p class="text-secondary text-center text-xs mb-4">Get in touch with us through any channel below</p>
-      
-      <div class="space-y-3 mb-5">
-        <div class="flex items-center gap-3 p-3 bg-slate-100 dark:bg-slate-800 rounded-xl"><i class="fas fa-phone-alt text-indigo-600 dark:text-indigo-400 text-lg w-8"></i><div><p class="font-semibold text-sm">Phone / Telegram</p><p class="text-sm">+855 99 822 579</p></div></div>
-        <div class="flex items-center gap-3 p-3 bg-slate-100 dark:bg-slate-800 rounded-xl"><i class="fas fa-envelope text-indigo-600 dark:text-indigo-400 text-lg w-8"></i><div><p class="font-semibold text-sm">Email</p><p class="text-sm">khemoun4@gmail.com</p></div></div>
-        <div class="flex items-center gap-3 p-3 bg-slate-100 dark:bg-slate-800 rounded-xl"><i class="fab fa-telegram text-indigo-600 dark:text-indigo-400 text-lg w-8"></i><div><p class="font-semibold text-sm">Telegram</p><p class="text-sm">@khemoun1</p></div></div>
-      </div>
-      
-      <div class="text-center mb-5">
-        <p class="text-sm font-semibold mb-3">Follow us on Social Media</p>
-        <div class="flex justify-center gap-4">
-          <a href="#" class="social-icon w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white hover:bg-blue-700 transition"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="social-icon w-10 h-10 bg-black rounded-full flex items-center justify-center text-white hover:bg-gray-800 transition"><i class="fab fa-tiktok"></i></a>
-          <a href="#" class="social-icon w-10 h-10 bg-sky-500 rounded-full flex items-center justify-center text-white hover:bg-sky-600 transition"><i class="fab fa-telegram-plane"></i></a>
-          <a href="#" class="social-icon w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center text-white hover:opacity-90 transition"><i class="fab fa-instagram"></i></a>
-        </div>
-      </div>
-      
-      <div class="border-t border-theme pt-4">
-        <p class="text-center text-secondary text-xs mb-3">Or send us a message directly</p>
-        <div class="space-y-3">
-          <input v-model="contactName" type="text" placeholder="Full Name" class="w-full rounded-xl p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none border border-theme bg-card">
-          <input v-model="contactEmail" type="email" placeholder="Email Address" class="w-full rounded-xl p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none border border-theme bg-card">
-          <textarea v-model="contactMessage" rows="3" placeholder="Your message..." class="w-full rounded-xl p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none border border-theme bg-card"></textarea>
-          <div class="flex justify-center">
-            <button @click="sendContactToTelegram" :disabled="sending" class="w-full md:w-auto min-w-[200px] bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-semibold transition text-sm shadow-md px-6">{{ sending ? 'Sending...' : '📤 Send to admin' }}</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    </transition>
 
     <!-- REGISTRATION MODAL -->
-    <div v-if="showRegisterModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4" @click.self="showRegisterModal=false">
-      <div class="bg-card rounded-2xl max-w-md w-full p-5 border border-indigo-500 max-h-[85vh] overflow-y-auto custom-scroll shadow-xl">
-        <div class="flex justify-between items-center"><h3 class="text-xl font-bold"> Register Now</h3><button @click="showRegisterModal=false" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center"><i class="fas fa-times text-slate-600 dark:text-slate-400 text-sm"></i></button></div>
-        <div class="mt-4 space-y-3">
-          <input v-model="regName" type="text" placeholder="Full Name *" class="w-full rounded-xl p-3 text-sm border border-theme bg-card">
-          <input v-model="regEmail" type="email" placeholder="Email Address *" class="w-full rounded-xl p-3 text-sm border border-theme bg-card">
-          <input v-model="regPhone" type="tel" placeholder="Phone (optional)" class="w-full rounded-xl p-3 text-sm border border-theme bg-card">
-          <select v-model="regCourse" class="w-full rounded-xl p-3 text-sm border border-theme bg-card"><option disabled value="">🎓 Interested course (optional)</option><option v-for="c in allCourses.slice(0,15)" :key="c.id">{{ c.title }}</option></select>
-          <div class="flex justify-center">
-            <button @click="sendRegistrationToTelegram" :disabled="regSending" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold mt-2 transition text-sm shadow-md">{{ regSending ? 'Processing...' : ' Register & Get Updates' }}</button>
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-card rounded-2xl border border-indigo-500 shadow-2xl">
+          <div class="modal-header border-theme">
+            <h3 class="modal-title text-xl font-bold">Register Now</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="space-y-3">
+              <input v-model="regName" type="text" placeholder="Full Name *" class="w-full rounded-xl p-3 text-sm border transition-all duration-300 focus:ring-2 focus:ring-indigo-500 outline-none">
+              <input v-model="regEmail" type="email" placeholder="Email Address *" class="w-full rounded-xl p-3 text-sm border transition-all duration-300 focus:ring-2 focus:ring-indigo-500 outline-none">
+              <input v-model="regPhone" type="tel" placeholder="Phone (optional)" class="w-full rounded-xl p-3 text-sm border transition-all duration-300 focus:ring-2 focus:ring-indigo-500 outline-none">
+              <select v-model="regCourse" class="w-full rounded-xl p-3 text-sm border transition-all duration-300 focus:ring-2 focus:ring-indigo-500 outline-none"><option disabled value=""> Interested course (optional)</option><option v-for="c in allCourses.slice(0,15)" :key="c.id">{{ c.title }}</option></select>
+            </div>
+            <p class="text-[10px] text-secondary mt-3 text-center">By joining, you agree to receive course news via Telegram.</p>
+          </div>
+          <div class="modal-footer border-theme">
+            <button @click="sendRegistrationToTelegram" :disabled="regSending" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold transition-all duration-300 text-sm shadow-md">{{ regSending ? 'Processing...' : ' Register & Get Updates' }}</button>
           </div>
         </div>
-        <p class="text-[10px] text-secondary mt-3 text-center">By joining, you agree to receive course news via Telegram.</p>
       </div>
     </div>
   </main>
 
-  <div v-if="toastMessage" class="fixed bottom-24 left-1/2 transform -translate-x-1/2 toast-notification px-4 py-2.5 rounded-full shadow-xl z-50 text-xs font-medium text-center max-w-[85vw]">{{ toastMessage }}</div>
+  <div v-if="toastMessage" class="fixed bottom-24 left-1/2 transform -translate-x-1/2 toast-notification px-5 py-3 rounded-full shadow-2xl z-50 text-xs font-medium text-center max-w-[85vw]">{{ toastMessage }}</div>
 </div>
 
 <script>
@@ -387,25 +487,30 @@
       searchQuery: '',
       selectedCategory: '',
       isDarkMode: false,
+      countersStarted: false,
       allCourses: [
-        { id:1, title:'C Programming', category:'Prog', price:39, rating:4.7, description:'Pointers, memory management, fundamentals', icon:'fas fa-code', bgColor:'bg-gradient-to-r from-blue-600 to-blue-800' },
-        { id:2, title:'C++ Programming', category:'Prog', price:39, rating:4.8, description:'OOP, STL, algorithms, data structures', icon:'fas fa-code-branch', bgColor:'bg-gradient-to-r from-purple-600 to-purple-800' },
-        { id:3, title:'Python Programming', category:'Prog', price:89, rating:4.9, description:'Data structures, , AI, automation', icon:'fab fa-python', bgColor:'bg-gradient-to-r from-green-600 to-green-800' },
-        { id:4, title:'Java Programming', category:'Prog', price:89, rating:4.8, description:'OOP, collections, multithreading', icon:'fab fa-java', bgColor:'bg-gradient-to-r from-red-600 to-red-800' },
-        { id:5, title:'PHP + MySQL', category:'DB', price:99, rating:4.9, description:'CRUD, authentication, database queries', icon:'fas fa-database', bgColor:'bg-gradient-to-r from-indigo-600 to-indigo-800' },
-        { id:6, title:'Laravel Project', category:'Frame', price:299, rating:5.0, description:'MVC, Eloquent, E-commerce', icon:'fab fa-laravel', bgColor:'bg-gradient-to-r from-red-500 to-orange-600' },
-        { id:7, title:'Vue.js Development', category:'Web', price:99, rating:4.9, description:'E-commerce, Pinia, Vue Router', icon:'fab fa-vuejs', bgColor:'bg-gradient-to-r from-emerald-600 to-teal-600' },
-        { id:8, title:'App + AI (Android)', category:'Mobile', price:159, rating:4.9, description:'POS, stock control, AI receipt', icon:'fas fa-robot', bgColor:'bg-gradient-to-r from-cyan-600 to-blue-600' },
-        { id:9, title:'Microsoft Word', category:'Office', price:1.99, rating:4.6, description:'Document formatting, templates, mail merge', icon:'fab fa-windows', bgColor:'bg-gradient-to-r from-blue-500 to-blue-700' },
-        { id:10, title:'Microsoft Excel', category:'Office', price:1.99, rating:4.7, description:'Formulas, functions, charts, pivot tables', icon:'fas fa-file-excel', bgColor:'bg-gradient-to-r from-green-600 to-green-800' },
-        { id:11, title:'Advanced Excel', category:'Office', price:29, rating:4.9, description:'Power Query, VBA macros, data analysis', icon:'fas fa-chart-line', bgColor:'bg-gradient-to-r from-emerald-600 to-green-800' },
-        { id:12, title:'PowerPoint', category:'Office', price:1.99, rating:4.6, description:'Presentations, animations, slide design', icon:'fas fa-chalkboard', bgColor:'bg-gradient-to-r from-orange-500 to-red-600' },
-        { id:13, title:'Adobe Photoshop', category:'Design', price:49, rating:4.8, description:'Photo editing, layers, retouching', icon:'fab fa-brush', bgColor:'bg-gradient-to-r from-blue-600 to-indigo-700' },
-        { id:14, title:'Adobe Illustrator', category:'Design', price:49, rating:4.7, description:'Vector graphics, logo design', icon:'fas fa-paint-brush', bgColor:'bg-gradient-to-r from-yellow-600 to-orange-600' },
-        { id:15, title:'Premiere Pro', category:'Video', price:89, rating:4.8, description:'Video editing, transitions, effects', icon:'fas fa-video', bgColor:'bg-gradient-to-r from-purple-600 to-pink-600' },
-        { id:16, title:'After Effects', category:'Video', price:89, rating:4.9, description:'Motion graphics, VFX, animations', icon:'fas fa-film', bgColor:'bg-gradient-to-r from-indigo-700 to-purple-700' },
-        { id:17, title:'Cinema 4D', category:'Video', price:179, rating:4.9, description:'Motion graphics, VFX, animations', icon:'fas fa-film', bgColor:'bg-gradient-to-r from-indigo-700 to-purple-700' },
-        { id:18, title:'Capcut', category:'Video', price:69, rating:4.6, description:'Mobile/desktop video editing', icon:'fas fa-cut', bgColor:'bg-gradient-to-r from-rose-500 to-pink-600' }
+        { id:1, title:'C Programming Masterclass', category:'Prog', price:39, rating:4.7, description:'Learn C fundamentals, pointers, memory management, and build real-world applications', icon:'fas fa-code', bgColor:'bg-gradient-to-r from-blue-600 to-blue-800' },
+        { id:2, title:'C++ Programming with OOP', category:'Prog', price:39, rating:4.8, description:'Object-oriented programming, STL, algorithms, data structures mastery', icon:'fas fa-code-branch', bgColor:'bg-gradient-to-r from-purple-600 to-purple-800' },
+        { id:3, title:'Python Complete Bootcamp', category:'Prog', price:89, rating:4.9, description:'Data structures, AI, automation, web scraping, and machine learning basics', icon:'fab fa-python', bgColor:'bg-gradient-to-r from-green-600 to-green-800' },
+        { id:4, title:'Java Programming Expert', category:'Prog', price:89, rating:4.8, description:'OOP, collections, multithreading, JDBC, and Spring basics', icon:'fab fa-java', bgColor:'bg-gradient-to-r from-red-600 to-red-800' },
+        { id:5, title:'Dart Programming', category:'Prog', price:89, rating:4.8, description:'Dart language, null safety, cross-platform', icon:'fab fa-dart', bgColor:'bg-gradient-to-r from-teal-600 to-cyan-600' },
+        { id:6, title:'C# .NET Framework', category:'Prog', price:89, rating:4.8, description:'.NET framework, desktop apps, Unity game development', icon:'fab fa-microsoft', bgColor:'bg-gradient-to-r from-purple-600 to-indigo-600' },
+        { id:7, title:'PHP with MySQL Database', category:'DB', price:99, rating:4.9, description:'CRUD operations, authentication, complex database queries', icon:'fas fa-database', bgColor:'bg-gradient-to-r from-indigo-600 to-indigo-800' },
+        { id:8, title:'Laravel Advanced Project', category:'Frame', price:299, rating:5.0, description:'MVC architecture, Eloquent ORM, E-commerce platforms', icon:'fab fa-laravel', bgColor:'bg-gradient-to-r from-red-500 to-orange-600' },
+        { id:9, title:'Vue.js Modern Development', category:'Web', price:99, rating:4.9, description:'E-commerce, Pinia state management, Vue Router, Composition API', icon:'fab fa-vuejs', bgColor:'bg-gradient-to-r from-emerald-600 to-teal-600' },
+        { id:10, title:'React.js Complete Guide', category:'Web', price:179, rating:4.9, description:'Hooks, Redux, Next.js, modern frontend development', icon:'fab fa-react', bgColor:'bg-gradient-to-r from-cyan-600 to-blue-600' },
+        { id:11, title:'Angular Enterprise Apps', category:'Web', price:199, rating:4.9, description:'TypeScript, RxJS, NgRx, scalable web applications', icon:'fab fa-angular', bgColor:'bg-gradient-to-r from-red-600 to-pink-600' },
+        { id:12, title:'Android App + AI Integration', category:'Mobile', price:159, rating:4.9, description:'POS system, stock control, AI receipt scanning, Firebase', icon:'fas fa-robot', bgColor:'bg-gradient-to-r from-cyan-600 to-blue-600' },
+        { id:13, title:'Microsoft Word Professional', category:'Office', price:1.99, rating:4.6, description:'Document formatting, templates, mail merge, advanced typography', icon:'fab fa-windows', bgColor:'bg-gradient-to-r from-blue-500 to-blue-700' },
+        { id:14, title:'Microsoft Excel Data Analysis', category:'Office', price:1.99, rating:4.7, description:'Formulas, functions, charts, pivot tables, dashboard creation', icon:'fas fa-file-excel', bgColor:'bg-gradient-to-r from-green-600 to-green-800' },
+        { id:15, title:'Advanced Excel with VBA', category:'Office', price:29, rating:4.9, description:'Power Query, VBA macros, automation, data analysis', icon:'fas fa-chart-line', bgColor:'bg-gradient-to-r from-emerald-600 to-green-800' },
+        { id:16, title:'PowerPoint Presentation Design', category:'Office', price:1.99, rating:4.6, description:'Presentations, animations, slide design, storytelling', icon:'fas fa-chalkboard', bgColor:'bg-gradient-to-r from-orange-500 to-red-600' },
+        { id:17, title:'Adobe Photoshop Mastery', category:'Design', price:49, rating:4.8, description:'Photo editing, layers, retouching, digital art', icon:'fab fa-adobe', bgColor:'bg-gradient-to-r from-blue-600 to-indigo-700' },
+        { id:18, title:'Adobe Illustrator Vector Art', category:'Design', price:49, rating:4.7, description:'Vector graphics, logo design, illustration techniques', icon:'fas fa-paint-brush', bgColor:'bg-gradient-to-r from-yellow-600 to-orange-600' },
+        { id:19, title:'Premiere Pro Video Editing', category:'Video', price:89, rating:4.8, description:'Video editing, transitions, effects, color grading', icon:'fas fa-video', bgColor:'bg-gradient-to-r from-purple-600 to-pink-600' },
+        { id:20, title:'After Effects Motion Graphics', category:'Video', price:89, rating:4.9, description:'Motion graphics, VFX, animations, visual effects', icon:'fas fa-film', bgColor:'bg-gradient-to-r from-indigo-700 to-purple-700' },
+        { id:21, title:'Cinema 4D 3D Animation', category:'Video', price:179, rating:4.9, description:'3D motion graphics, animations, rendering techniques', icon:'fas fa-cube', bgColor:'bg-gradient-to-r from-purple-700 to-pink-700' },
+        { id:22, title:'Capcut Video Editing', category:'Video', price:69, rating:4.6, description:'Mobile and desktop video editing, trending effects', icon:'fas fa-cut', bgColor:'bg-gradient-to-r from-rose-500 to-pink-600' }
       ]
     },
     computed: {
@@ -439,7 +544,11 @@
         }
       },
       filterByCategory(category) { this.currentView = 'courses'; this.selectedCategory = category; this.searchQuery = ''; },
-      openRegisterModal() { this.showRegisterModal = true; this.regName=''; this.regEmail=''; this.regPhone=''; this.regCourse=''; },
+      openRegisterModal() { 
+        const modalEl = document.getElementById('registerModal');
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
+      },
       async sendToTelegram(message, successMsg) {
         const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
         try {
@@ -453,16 +562,23 @@
         if (!this.contactName.trim() || !this.contactMessage.trim()) { this.toastMessage = '⚠️ Name & message required'; setTimeout(() => this.toastMessage = '', 1800); return; }
         this.sending = true;
         const msg = `📩 <b>Contact Request</b>\n👤 ${this.contactName}\n📧 ${this.contactEmail || '—'}\n💬 ${this.contactMessage}`;
-        const ok = await this.sendToTelegram(msg, 'Sent to support!');
+        const ok = await this.sendToTelegram(msg, ' Sent to support!');
         if (ok) { this.contactName = ''; this.contactEmail = ''; this.contactMessage = ''; }
         this.sending = false;
       },
       async sendRegistrationToTelegram() {
         if (!this.regName.trim() || !this.regEmail.trim()) { this.toastMessage = '⚠️ Name and email required'; setTimeout(() => this.toastMessage = '', 1800); return; }
         this.regSending = true;
-        const msg = `🎓 <b>New Student</b>\n👤 ${this.regName}\n📧 ${this.regEmail}\n📞 ${this.regPhone || '—'}\n📚 Course: ${this.regCourse || 'Any'}`;
+        const msg = ` <b>New Student</b>\n👤 ${this.regName}\n📧 ${this.regEmail}\n📞 ${this.regPhone || '—'}\n📚 Course: ${this.regCourse || 'Any'}`;
         const ok = await this.sendToTelegram(msg, ` Welcome ${this.regName}! Registration complete.`);
-        if (ok) { this.isRegistered = true; this.studentName = this.regName; this.showRegisterModal = false; }
+        if (ok) { 
+          this.isRegistered = true; 
+          this.studentName = this.regName; 
+          const modalEl = document.getElementById('registerModal');
+          const modal = bootstrap.Modal.getInstance(modalEl);
+          if (modal) modal.hide();
+          this.regName = ''; this.regEmail = ''; this.regPhone = ''; this.regCourse = '';
+        }
         this.regSending = false;
       },
       enrollCourse(course) {
